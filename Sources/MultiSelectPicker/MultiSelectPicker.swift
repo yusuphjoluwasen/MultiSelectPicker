@@ -3,7 +3,7 @@
 import SwiftUI
 
 @available(iOS 16.0, *)
-public struct MultiOptionListView: View {
+public struct MultiSelectPicker: View {
     public var title:String
     @Binding public var options: [FormOption]
     //use for internal display of selected items
