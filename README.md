@@ -18,7 +18,7 @@ To install, add the following to your `Package.swift` dependencies:
 
 ##Usage
 ```swift
- MultiOptionListView(title: "Hobbies", options: $options)
+ MultiSelectPicker(title: "Hobbies", options: $options)
                 .padding()
 ```
 
@@ -37,7 +37,7 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            MultiOptionListView(title: "Hobbies", options: $options)
+            MultiSelectPicker(title: "Hobbies", options: $options)
                 .padding()
         }
     }
