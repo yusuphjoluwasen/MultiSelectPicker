@@ -19,7 +19,6 @@ To install, add the following to your `Package.swift` dependencies:
 ## Usage
 ```swift
  MultiSelectPicker(title: "Hobbies", options: $options)
-                .padding()
 ```
 
 ## Sample Usage
