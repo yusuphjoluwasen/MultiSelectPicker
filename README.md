@@ -14,3 +14,32 @@ To install, add the following to your `Package.swift` dependencies:
 
 ```swift
 .package(url: "https://github.com/yusuphjoluwasen/MultiSelectPicker.git", from: "1.0.0")
+```
+
+##Usage
+```swift
+ MultiOptionListView(title: "Hobbies", options: $options)
+                .padding()
+```
+
+## Sample Usage
+```swift
+import SwiftUI
+import MultiSelectPicker
+
+struct ContentView: View {
+    @State var options: [FormOption] = [
+        FormOption(label: "Reading", value: "reading"),
+        FormOption(label: "Traveling", value: "traveling"),
+        FormOption(label: "Cooking", value: "cooking"),
+        FormOption(label: "Gaming", value: "gaming")
+    ]
+    
+    var body: some View {
+        VStack {
+            MultiOptionListView(title: "Hobbies", options: $options)
+                .padding()
+        }
+    }
+}
+```
