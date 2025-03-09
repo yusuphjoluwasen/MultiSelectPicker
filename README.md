@@ -6,7 +6,7 @@ A custom MultiSelect Picker in SwiftUI that allows users to select multiple opti
 
 **Click the image to see how it works**
 
-![Giffff](https://github.com/username/repository-name/blob/main/path/to/your/image.gif)
+![Giffff](https://github.com/user-attachments/assets/afbc3ec1-ec20-41d8-b950-2743c6a4cace)
 
 ## Installation
 
