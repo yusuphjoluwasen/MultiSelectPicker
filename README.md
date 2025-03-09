@@ -16,7 +16,7 @@ To install, add the following to your `Package.swift` dependencies:
 .package(url: "https://github.com/yusuphjoluwasen/MultiSelectPicker.git", from: "1.0.0")
 ```
 
-##Usage
+## Usage
 ```swift
  MultiSelectPicker(title: "Hobbies", options: $options)
                 .padding()
