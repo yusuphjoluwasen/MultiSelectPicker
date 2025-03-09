@@ -2,7 +2,6 @@
 
 A custom MultiSelect Picker in SwiftUI that allows users to select multiple options.
 
-![Giffff](https://github.com/user-attachments/assets/afbc3ec1-ec20-41d8-b950-2743c6a4cace)
 <p align="center">
   <img src="https://github.com/user-attachments/assets/afbc3ec1-ec20-41d8-b950-2743c6a4cace" alt="An Image showing the MultiSelect Picker works">
 </p>
