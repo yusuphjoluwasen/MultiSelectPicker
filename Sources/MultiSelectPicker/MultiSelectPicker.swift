@@ -21,11 +21,11 @@ public struct MultiSelectPicker: View {
     public var body: some View {
         VStack(alignment: .leading) {
             Button(action: {
-                showOptionsSheet.toggle() // Open the sheet
+                showOptionsSheet.toggle()
             }) {
                 VStack {
                     HStack {
-                        Text(selectedOptions.isEmpty ? title : selectedOptions.map { $0.label ?? "" }.joined(separator: ", "))
+                        Text(selectedOptions.isEmpty ? title : selectedOptions.map { $0.label }.joined(separator: ", "))
                         Spacer()
                         Image("menuindicator", bundle: .module)
                     }
@@ -48,7 +48,7 @@ public struct MultiSelectPicker: View {
         .onAppear{
             // This ensures that items initially marked as selected
             // are automatically pre-selected when the view appears.
-            // Remove this line if you only want manual selection.
+            // Remove this line if you do not support pre-selection.
             selectedOptions = Set(options.filter { $0.isSelected })
         }
     }
@@ -109,7 +109,7 @@ struct MultipleSelectionRow: View {
     var body: some View {
         Button(action: onTap) {
             HStack {
-                Text(option.label ?? "")
+                Text(option.label)
                 Spacer()
                 if isSelected {
                     Image(systemName: "checkmark")
@@ -122,7 +122,7 @@ struct MultipleSelectionRow: View {
 }
 
 public class FormOption: Hashable, Identifiable, Equatable {
-    var label: String?
+    var label: String
     var value: String?
     var uid: String?
     public var id: String = UUID().uuidString
@@ -136,7 +136,7 @@ public class FormOption: Hashable, Identifiable, Equatable {
         hasher.combine(id)
     }
     
-    public init(label: String? = nil, value: String? = nil, uid:String? = nil, isSelected: Bool = false) {
+    public init(label: String, value: String? = nil, uid:String? = nil, isSelected: Bool = false) {
         self.label = label
         self.value = value
         self.uid = uid
