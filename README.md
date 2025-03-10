@@ -70,7 +70,7 @@ We love contributions from the community, Whether it's fixing a bug, improving p
 - Create a Pull Request (PR) on and describe your changes.
 - Ensure changes meet acceptance criteria stated in the issue
 
-📜 ## License
+## 📜 License
 This project is licensed under the MIT License — meaning you can use, modify, and distribute it freely.
 
 
