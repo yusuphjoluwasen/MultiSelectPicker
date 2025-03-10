@@ -12,10 +12,10 @@ A custom MultiSelect Picker in SwiftUI that allows users to select multiple opti
 - [x] Two-way binding — Automatically updates selected options
 - [x] Lightweight — Minimal code with clean and reusable SwiftUI components.
 - [x] Swift Package Manager (SPM) support — Easy to integrate with any SwiftUI project.
-- [] Searchable Picker — Add a search bar to filter options.
-- [] Custom Styling — Support for custom colors, and styles.
-- [] Accessibility Improvements.
-- [] Localizations.
+- [ ] Searchable Picker — Add a search bar to filter options.
+- [ ] Custom Styling — Support for custom colors, and styles.
+- [ ] Accessibility Improvements.
+- [ ] Localizations.
 
 ## Installation
 
