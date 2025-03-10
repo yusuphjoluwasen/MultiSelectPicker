@@ -26,12 +26,11 @@ jobs:
             -enableCodeCoverage YES
 
       - name: Upload Test Results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: test-results
+          name: test-results-${{ github.run_id }}
           path: build/reports/tests
 
       - name: Fail if Tests Fail
         if: ${{ failure() }}
         run: exit 1
-
