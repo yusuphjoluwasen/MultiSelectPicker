@@ -1,0 +1,65 @@
+# Xcode
+#
+# User-specific files
+*.xcuserstate
+*.xcworkspace/xcuserdata/
+
+# Build folder
+/build/
+DerivedData/
+
+# Workspace-specific files
+*.xccheckout
+*.xcscmblueprint
+
+# CocoaPods
+#
+# Pods
+Pods/
+
+# Carthage
+#
+# Carthage/Checkouts
+Carthage/Checkouts
+
+# Carthage/Build
+Carthage/Build/
+
+# Swift Package Manager
+#
+# Xcode 11+ has a .swiftpm directory that should be ignored.
+.swiftpm/
+
+# Swift Package Manager artifacts
+Packages/
+.xcpackage/
+
+# Xcode archives
+*.xcarchive
+
+# Xcode preferences
+*.xcodeproj/project.xcworkspace/
+.idea/
+
+# Simulator
+#
+# iOS Simulator files
+*.simulator/
+
+# Temporary files
+*.swp
+*.swo
+
+# Other files
+.log
+.DS_Store
+.app
+.ipa
+
+# Fastlane
+#
+# Fastlane should not store these files
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+
