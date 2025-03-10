@@ -63,8 +63,7 @@ https://jimohyusuph.hashnode.dev/building-a-custom-multiselect-picker-in-swiftui
 We love contributions from the community, Whether it's fixing a bug, improving performance, adding features, or enhancing documentation, your help is welcome.
 
 ### How To Contribute
-- Pick an Issue First
-- Look for issues on the Issues tab labeled good first issue, help wanted, or any open issue.
+- Look for issues on the Issues tab
 - Comment on the issue to get assigned to it.
 - Fork the repository on GitHub.
 - Create a Pull Request (PR) on and describe your changes.
