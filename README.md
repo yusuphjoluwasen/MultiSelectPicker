@@ -11,8 +11,7 @@ A MultiSelect Picker for selecting multiple options, designed to feel as close a
 - [x] Customizable title
 - [x] Two-way binding — Automatically updates selected options
 - [x] Lightweight — Minimal code with clean and reusable SwiftUI components.
-- [x] Swift Package Manager (SPM) support — Easy to integrate with any SwiftUI project.
-- [x] Light and Dark Mode Support
+- [x] Light and Dark Mode 
 - [ ] Search — Add a search bar to filter options.
 - [ ] Custom Styling — Support for custom colors, and styles.
 - [ ] Accessibility Improvements.
