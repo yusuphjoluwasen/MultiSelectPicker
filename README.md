@@ -66,7 +66,8 @@ We love contributions from the community, Whether it's fixing a bug, improving p
 - Look for issues on the Issues tab
 - Comment on the issue to get assigned to it.
 - Fork the repository on GitHub.
-- Create a Pull Request (PR) on and describe your changes.
+- Once you are done with changes, Create a Pull Request (PR) on and describe the changes.
+- Add screenshots or images of any UI changes in your PR
 - Ensure changes meet acceptance criteria stated in the issue
 
 ## 📜 License
