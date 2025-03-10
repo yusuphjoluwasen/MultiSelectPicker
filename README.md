@@ -68,5 +68,5 @@ We love contributions from the community, Whether it's fixing a bug, improving p
 - Comment on the issue to get assigned to it.
 - Fork the repository on GitHub.
 - Create a Pull Request (PR) on and describe your changes.
-- Ensure changes meet acceptance criteria
+- Ensure changes meet acceptance criteria stated in the issue
 
