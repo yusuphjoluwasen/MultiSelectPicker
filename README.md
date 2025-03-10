@@ -7,11 +7,12 @@ A custom MultiSelect Picker in SwiftUI that allows users to select multiple opti
 </p>
 
 ## Current Features
-- [x] Multi-select support — Allows users to select multiple options from a list.
-- [x] Customizable title — Easily set a title for your picker.
+- [x] Multi-select support
+- [x] Customizable title
 - [x] Two-way binding — Automatically updates selected options
 - [x] Lightweight — Minimal code with clean and reusable SwiftUI components.
 - [x] Swift Package Manager (SPM) support — Easy to integrate with any SwiftUI project.
+- [x] Light and Dark Mode Support
 - [ ] Searchable Picker — Add a search bar to filter options.
 - [ ] Custom Styling — Support for custom colors, and styles.
 - [ ] Accessibility Improvements.
