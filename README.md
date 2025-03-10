@@ -59,14 +59,19 @@ For a step-by-step guide on how to build the custom MultiSelect Picker, check ou
 https://jimohyusuph.hashnode.dev/building-a-custom-multiselect-picker-in-swiftui
 
 
-### Contributing to MultiSelectPicker
-We love contributions from the community, Whether it's fixing a bug, improving performance, adding features, or enhancing documentation — your help is welcome.
+## Contributing to MultiSelectPicker
+We love contributions from the community, Whether it's fixing a bug, improving performance, adding features, or enhancing documentation, your help is welcome.
 
-#### How To Contribute
+### How To Contribute
 - Pick an Issue First
 - Look for issues on the Issues tab labeled good first issue, help wanted, or any open issue.
 - Comment on the issue to get assigned to it.
 - Fork the repository on GitHub.
 - Create a Pull Request (PR) on and describe your changes.
 - Ensure changes meet acceptance criteria stated in the issue
+
+📜 ## License
+This project is licensed under the MIT License — meaning you can use, modify, and distribute it freely.
+
+
 
