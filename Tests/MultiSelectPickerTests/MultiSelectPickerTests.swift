@@ -29,33 +29,4 @@ final class MultiSelectPickerTests: XCTestCase {
         XCTAssertTrue(picker.options.first?.isSelected == true)
     }
     
-//    @MainActor func testPreSelectedItems() {
-//        // Arrange: Create pre-selected options
-//        let option1 = FormOption(label: "Reading", isSelected: true)
-//        let option2 = FormOption(label: "Gaming", isSelected: true)
-//        let options = [option1, option2]
-//        
-//        // Create an expectation to wait for the state update
-//        let expectation = self.expectation(description: "State update for selectedOptions")
-//        
-//        // Act: Create the picker
-//        let view = MultiSelectPicker(title: "Hobbies", options: .constant(options))
-//        
-//        DispatchQueue.main.async {
-//            // Manually trigger the onAppear by setting the selectedOptions
-//            // This simulates the view appearing and the state being set
-//            view.selectedOptions = Set(options.filter { $0.isSelected })
-//            
-//            // Assert: Verify pre-selected items are already selected
-//            XCTAssertTrue(view.selectedOptions.contains(option1))
-//            XCTAssertEqual(view.selectedOptions.count, 1)
-//            
-//            // Fulfill the expectation to continue the test
-//            expectation.fulfill()
-//        }
-//        
-//        // Wait for expectations with a timeout
-//        wait(for: [expectation], timeout: 5)
-//    }
-    
 }

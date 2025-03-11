@@ -7,7 +7,7 @@ public struct MultiSelectPicker: View {
     public var title:String
     @Binding public var options: [FormOption]
     //use for internal display of selected items
-    @State var selectedOptions: Set<FormOption> = []
+    @State private var selectedOptions: Set<FormOption> = []
     @State private var showOptionsSheet = false
     
     public init(
