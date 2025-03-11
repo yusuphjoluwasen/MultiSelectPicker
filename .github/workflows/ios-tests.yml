@@ -38,6 +38,10 @@ jobs:
         run: |
           brew install xcbeautify
           xcodebuild -resultBundlePath build/reports/tests/MultiSelectPicker.xcresult | xcbeautify
+          
+      - name: Fail if Tests Fail
+        if: ${{ failure() }}
+        run: exit 1
 
    
 
