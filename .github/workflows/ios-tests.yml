@@ -36,9 +36,9 @@ jobs:
       - name: Analyze Test Results with xcbeautify
         run: |
           brew install xcbeautify
-          xcbeautify -r build/reports/tests/MultiSelectPicker.xcresult
+          xcbeautify build/reports/tests/MultiSelectPicker.xcresult
 
       - name: Fail if Tests Fail
-        if: ${{ failure() }} 
+        if: ${{ failure() }}
         run: exit 1
 
