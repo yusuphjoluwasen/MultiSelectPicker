@@ -17,16 +17,12 @@ jobs:
         uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: latest
-          
-      - name: Reset Swift Package Cache
-        run: |
-        swift package reset
 
       - name: Build and test
         run: |
           xcodebuild test \
             -scheme MultiSelectPicker \
-            -destination 'platform=iOS Simulator,name=iPhone 15,OS=16.0' \
+            -destination 'platform=iOS Simulator' \
             -enableCodeCoverage YES \
             -resultBundlePath build/reports/tests/MultiSelectPicker.xcresult
 
