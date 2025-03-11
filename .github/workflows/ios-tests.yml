@@ -27,7 +27,7 @@ jobs:
             -resultBundlePath build/reports/tests/MultiSelectPicker.xcresult
 
       - name: Upload Test Results
-       if: always()
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: test-results-${{ github.run_id }}
