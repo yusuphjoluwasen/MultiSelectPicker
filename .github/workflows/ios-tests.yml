@@ -18,10 +18,6 @@ jobs:
         with:
           xcode-version: latest
           
-      - name: Clean Derived Data
-        run: |
-        xcodebuild clean -scheme MultiSelectPicker
-
       - name: Build and test
         run: |
           xcodebuild test \
