@@ -17,6 +17,10 @@ let package = Package(
         .target(
             name: "MultiSelectPicker", resources: [
                 .process("Assets.xcassets")
-            ])
+                
+            ]),
+        .testTarget(
+                   name: "MultiSelectPickerTests", 
+                   dependencies: ["MultiSelectPicker"]),
     ]
 )
