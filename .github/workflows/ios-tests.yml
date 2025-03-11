@@ -32,9 +32,12 @@ jobs:
         with:
           name: test-results-${{ github.run_id }}
           path: build/reports/tests
-
+          
       - name: Analyze Test Results with xcbeautify
+        uses: actions/checkout@v4
         run: |
           brew install xcbeautify
-          xcbeautify -r build/reports/tests/MultiSelectPicker.xcresult
+          xcodebuild -resultBundlePath build/reports/tests/MultiSelectPicker.xcresult | xcbeautify
+
+   
 
