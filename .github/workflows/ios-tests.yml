@@ -18,6 +18,10 @@ jobs:
         with:
           xcode-version: latest
           
+      - name: Reset Swift Package Cache
+        run: |
+        swift package reset
+
       - name: Build and test
         run: |
           xcodebuild test \
