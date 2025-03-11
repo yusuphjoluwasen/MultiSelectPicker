@@ -32,16 +32,13 @@ jobs:
         with:
           name: test-results-${{ github.run_id }}
           path: build/reports/tests
-          
+
       - name: Analyze Test Results with xcbeautify
-        uses: actions/checkout@v4
         run: |
           brew install xcbeautify
-          xcodebuild -resultBundlePath build/reports/tests/MultiSelectPicker.xcresult | xcbeautify
-          
-      - name: Fail if Tests Fail
-        if: ${{ failure() }}
-        run: exit 1
+          xcbeautify -r build/reports/tests/MultiSelectPicker.xcresult
 
-   
+      - name: Fail if Tests Fail
+        if: ${{ failure() }} 
+        run: exit 1
 
