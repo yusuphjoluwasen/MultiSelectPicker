@@ -1,0 +1,15 @@
+{
+  "originHash" : "8cd01ba720068821e3402c1fd4446e87e677725d9f24ddbcb38faf86c7548e36",
+  "pins" : [
+    {
+      "identity" : "multiselectpicker",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/yusuphjoluwasen/MultiSelectPicker.git",
+      "state" : {
+        "revision" : "df952d8e76d1b336e5c72936372eab118472eee8",
+        "version" : "1.0.1"
+      }
+    }
+  ],
+  "version" : 3
+}
