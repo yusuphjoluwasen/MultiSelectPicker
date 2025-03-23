@@ -18,19 +18,21 @@ jobs:
         with:
           xcode-version: latest
 
+      - name: Install xcbeautify
+        run: brew install xcbeautify
+
       - name: Build and test
         run: |
-          xcodebuild test \
+          set -o pipefail && xcodebuild test \
             -scheme MultiSelectPicker \
-            -destination 'platform=iOS Simulator,name=iPhone 14' \
-            -enableCodeCoverage YES
+            -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.5' \
+            -enableCodeCoverage YES \
+            -resultBundlePath build/reports/tests/MultiSelectPicker.xcresult \
+            | xcbeautify --renderer github-actions
 
       - name: Upload Test Results
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: test-results-${{ github.run_id }}
           path: build/reports/tests
-
-      - name: Fail if Tests Fail
-        if: ${{ failure() }}
-        run: exit 1
