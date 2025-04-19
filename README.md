@@ -71,7 +71,7 @@ To try the component locally:
 
    ```bash
    cd MultiSelectPickerExample
-   open MultiSelectPicker.xcodeproj
+   open MultiSelectPickerExample.xcodeproj
 
 3. **Build and run** the `Example` target to see the picker in action.
 
