@@ -69,6 +69,8 @@ We love contributions from the community, Whether it's fixing a bug, improving p
 - Add screenshots or images of any UI changes in your PR
 - Ensure changes meet acceptance criteria stated in the issue
 
+#### You can also file an issue to request a feature or report a bug you come across. Thanks!
+
 ## 📜 License
 This project is licensed under the MIT License — meaning you can use, modify, and distribute it freely.
 
