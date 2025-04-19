@@ -2,6 +2,10 @@
 // https://docs.swift.org/swift-book
 import SwiftUI
 
+/// A custom multi-select picker using a modal sheet to present options.
+///
+/// - Available on iOS 16.0 and above.
+///
 @available(iOS 16.0, *)
 public struct MultiSelectPicker: View {
     public var title:String
@@ -54,92 +58,3 @@ public struct MultiSelectPicker: View {
     }
 }
 
-
-@available(iOS 16.0, *)
-struct OptionsSelectionSheet: View {
-    var options: [FormOption]
-    var title:String
-    @Binding var selectedOptions: Set<FormOption>
-    @Binding var sheetIsOpen:Bool
-    
-    var body: some View {
-        VStack{
-            
-            HStack{
-                Text(title)
-                    .foregroundColor(.secondary)
-                Spacer()
-                
-                Button(action: {
-                    sheetIsOpen = false
-                }){
-                    Text("Done")
-                }
-            }
-            .padding()
-            
-            List(options, id: \.self) { option in
-                MultipleSelectionRow(option: option, isSelected: option.isSelected) {
-                    toggleSelection(for: option)
-                }
-                .onAppear{dump("\(option.isSelected)")}
-            }
-            .listStyle(.plain)
-        }
-    }
-    
-    private func toggleSelection(for option: FormOption) {
-        option.isSelected.toggle()
-        
-        if option.isSelected {
-            selectedOptions.insert(option)
-        } else {
-            selectedOptions.remove(option)
-        }
-    }
-}
-
-@available(iOS 13.0, *)
-struct MultipleSelectionRow: View {
-    var option: FormOption
-    var isSelected: Bool
-    var uid:String?
-    var onTap: () -> Void
-    
-    var body: some View {
-        Button(action: onTap) {
-            HStack {
-                Text(option.label)
-                Spacer()
-                if isSelected {
-                    Image(systemName: "checkmark")
-                        .foregroundColor(.accentColor)
-                }
-            }
-        }
-        
-    }
-}
-
-public class FormOption: Hashable, Identifiable, Equatable {
-    var label: String
-    var value: String?
-    var uid: String?
-    public var id: String = UUID().uuidString
-    var isSelected: Bool = false
-    
-    public static func == (lhs: FormOption, rhs: FormOption) -> Bool {
-        return lhs.id == rhs.id
-    }
-    
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
-    
-    public init(label: String, value: String? = nil, uid:String? = nil, isSelected: Bool = false) {
-        self.label = label
-        self.value = value
-        self.uid = uid
-        self.isSelected = isSelected
-    }
-}
