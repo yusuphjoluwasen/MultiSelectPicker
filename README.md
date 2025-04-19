@@ -57,7 +57,8 @@ struct ContentView: View {
 For a step-by-step guide on how to build the custom MultiSelect Picker, check out the tutorial:
 https://jimohyusuph.hashnode.dev/building-a-custom-multiselect-picker-in-swiftui
 
-## 🧪 Run the Example
+
+## Run the Example
 
 To try the component locally:
 
@@ -70,6 +71,7 @@ To try the component locally:
    ```bash
    cd MultiSelectPicker
    open MultiSelectPicker.xcodeproj
+
 3. **Build and run** the `Example` target to see the picker in action.
 
 > Make sure you're using **Xcode 14 or later** and targeting **iOS 16 or above**.
