@@ -69,7 +69,7 @@ To try the component locally:
 2. **Open the project in Xcode:**
 
    ```bash
-   cd MultiSelectPicker
+   cd MultiSelectPickerExample
    open MultiSelectPicker.xcodeproj
 
 3. **Build and run** the `Example` target to see the picker in action.
