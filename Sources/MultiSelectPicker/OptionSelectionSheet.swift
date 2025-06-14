@@ -8,58 +8,57 @@
 import SwiftUI
 
 /// A modal sheet view presenting a list of selectable options.
-
 @available(iOS 16.0, *)
 struct OptionsSelectionSheet: View {
-    var options: [FormOption]
-    var title:String
-    @Binding var selectedOptions: Set<FormOption>
-    @Binding var sheetIsOpen:Bool
+    var allOptions: [FormOption]
+    var title: String
+    @Binding var selectedIDs: Set<String>
+    @Binding var searchText: String
+    var onToggle: (FormOption) -> Void
+    var onClear: () -> Void
+    var onDone: () -> Void
     
     var body: some View {
-        VStack{
-            
-            HStack{
-                Text(title)
-                    .foregroundColor(.secondary)
-                Spacer()
-                
-                Button(action: {
-                    sheetIsOpen = false
-                }){
-                    Text("Done")
+        NavigationStack {
+            List {
+                ForEach(allOptions, id: \.id) { option in
+                    MultipleSelectionRow(
+                        option: option,
+                        isSelected: selectedIDs.contains(option.id),
+                        onTap: { onToggle(option) }
+                    )
                 }
-            }
-            .padding()
-            
-            List(options, id: \.self) { option in
-                MultipleSelectionRow(option: option, isSelected: option.isSelected) {
-                    toggleSelection(for: option)
-                }
-                .onAppear{dump("\(option.isSelected)")}
             }
             .listStyle(.plain)
-        }
-    }
-    
-    private func toggleSelection(for option: FormOption) {
-        option.isSelected.toggle()
-        
-        if option.isSelected {
-            selectedOptions.insert(option)
-        } else {
-            selectedOptions.remove(option)
+            .searchable(text: $searchText, prompt: "Search \(title.lowercased())")
+            .navigationTitle(title)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    if !selectedIDs.isEmpty {
+                        Button("Clear") {
+                            onClear()
+                        }
+                        .foregroundColor(.red)
+                        .accessibilityLabel("Clear all selected options")
+                    }
+                }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Done") {
+                        onDone()
+                    }
+                    .accessibilityLabel("Close selection")
+                }
+            }
         }
     }
 }
 
-/// A row representing a single selectable item.
-
-@available(iOS 13.0, *)
+@available(iOS 14.0, *)
 struct MultipleSelectionRow: View {
     var option: FormOption
     var isSelected: Bool
-    var uid:String?
     var onTap: () -> Void
     
     var body: some View {
@@ -73,7 +72,9 @@ struct MultipleSelectionRow: View {
                 }
             }
         }
-        
+        .accessibilityElement()
+        .accessibilityLabel(option.label)
+        .accessibilityValue(isSelected ? "Selected" : "Not selected")
+        .accessibilityAddTraits(isSelected ? [.isButton, .isSelected] : .isButton)
     }
 }
-

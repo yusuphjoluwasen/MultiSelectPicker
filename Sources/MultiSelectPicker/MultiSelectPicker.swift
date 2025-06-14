@@ -8,53 +8,74 @@ import SwiftUI
 ///
 @available(iOS 16.0, *)
 public struct MultiSelectPicker: View {
-    public var title:String
+    public var title: String
     @Binding public var options: [FormOption]
-    //use for internal display of selected items
-    @State private var selectedOptions: Set<FormOption> = []
+    public var preSelected: [FormOption]
+    public var onDone: ((Set<FormOption>) -> Void)? = nil
+
+    @StateObject private var viewModel: MultiSelectPickerViewModel
     @State private var showOptionsSheet = false
-    
+
     public init(
         title: String,
-        options: Binding<[FormOption]>
+        options: Binding<[FormOption]>,
+        preSelected: [FormOption] = [],
+        onDone: ((Set<FormOption>) -> Void)? = nil
     ) {
         self.title = title
         self._options = options
+        self.preSelected = preSelected
+        self.onDone = onDone
+        _viewModel = StateObject(wrappedValue: MultiSelectPickerViewModel(
+            options: options.wrappedValue,
+            preSelected: preSelected
+        ))
     }
-    
+
     public var body: some View {
         VStack(alignment: .leading) {
-            Button(action: {
+            Button {
                 showOptionsSheet.toggle()
-            }) {
-                VStack {
-                    HStack {
-                        Text(selectedOptions.isEmpty ? title : selectedOptions.map { $0.label }.joined(separator: ", "))
-                        Spacer()
-                        Image("menuindicator", bundle: .module)
-                    }
+            } label: {
+                HStack {
+                    Text(viewModel.selectedOptions.isEmpty ? title :
+                         viewModel.selectedOptions.map { $0.label }.joined(separator: ", "))
+                        .accessibilityLabel(accessibilityLabelText)
+                    Spacer()
+                    Image(systemName: "chevron.down")
                 }
-                .frame(alignment: .leading)
                 .padding()
-                .background(Color.gray.opacity(0.5))
-                .cornerRadius(20)
+                .background(Color.gray.opacity(0.2))
+                .cornerRadius(10)
             }
+            .accessibilityElement(children: .combine)
+
             .sheet(isPresented: $showOptionsSheet) {
                 OptionsSelectionSheet(
-                    options: options, title: title,
-                    selectedOptions: $selectedOptions,
-                    sheetIsOpen: $showOptionsSheet
+                    allOptions: viewModel.filteredOptions,
+                    title: title,
+                    selectedIDs: $viewModel.selectedIDs,
+                    searchText: $viewModel.searchText,
+                    onToggle: { option in
+                        viewModel.toggleSelection(option)
+                    },
+                    onClear: {
+                        viewModel.clearSelection()
+                    },
+                    onDone: {
+                        showOptionsSheet = false
+                        options = viewModel.allOptions
+                        onDone?(viewModel.selectedOptions)
+                    }
                 )
                 .presentationDetents([.medium])
             }
-            
-        }
-        .onAppear{
-            // This ensures that items initially marked as selected
-            // are automatically pre-selected when the view appears.
-            // Remove this line if you do not support pre-selection.
-            selectedOptions = Set(options.filter { $0.isSelected })
         }
     }
-}
 
+    private var accessibilityLabelText: String {
+        viewModel.selectedOptions.isEmpty
+            ? title
+            : "Selected: \(viewModel.selectedOptions.map { $0.label }.joined(separator: ", "))"
+    }
+}
