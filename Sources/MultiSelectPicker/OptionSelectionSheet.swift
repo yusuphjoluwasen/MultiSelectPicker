@@ -62,7 +62,6 @@ struct MultipleSelectionRow: View {
                         .foregroundColor(.accentColor)
                 }
             }
-            .padding(.vertical, 8)
         }
         .accessibilityElement()
         .accessibilityLabel(option.label)
