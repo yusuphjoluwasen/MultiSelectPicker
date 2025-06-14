@@ -13,14 +13,22 @@ public class MultiSelectPickerViewModel: ObservableObject {
     @Published var allOptions: [FormOption]
     @Published var selectedOptions: Set<FormOption>
     @Published var selectedIDs: Set<String>
+    @Published var searchText: String = ""
 
     public init(options: [FormOption], preSelected: [FormOption] = []) {
         self.allOptions = options
-        let preSelectedLabels = Set(preSelected.map { $0.label.lowercased() })
+        let preSelectedIDs = Set(preSelected.map { $0.id })
+        let selected = options.filter { preSelectedIDs.contains($0.id) }
 
-        let selected = options.filter { preSelectedLabels.contains($0.label.lowercased()) }
         self.selectedOptions = Set(selected)
-        self.selectedIDs = Set(selected.map { $0.id })
+        self.selectedIDs = preSelectedIDs
+    }
+
+    public var filteredOptions: [FormOption] {
+        guard !searchText.isEmpty else { return allOptions }
+        return allOptions.filter {
+            $0.label.localizedCaseInsensitiveContains(searchText)
+        }
     }
 
     public func toggleSelection(_ option: FormOption) {
@@ -33,9 +41,12 @@ public class MultiSelectPickerViewModel: ObservableObject {
         }
     }
 
+    public func clearSelection() {
+        selectedOptions.removeAll()
+        selectedIDs.removeAll()
+    }
+
     public func getSelectedLabels() -> Set<String> {
         Set(selectedOptions.map(\.label))
     }
 }
-
-

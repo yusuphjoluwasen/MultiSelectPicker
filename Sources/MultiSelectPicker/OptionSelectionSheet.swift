@@ -13,7 +13,9 @@ struct OptionsSelectionSheet: View {
     var allOptions: [FormOption]
     var title: String
     @Binding var selectedIDs: Set<String>
+    @Binding var searchText: String
     var onToggle: (FormOption) -> Void
+    var onClear: () -> Void
     var onDone: () -> Void
 
     var body: some View {
@@ -23,28 +25,34 @@ struct OptionsSelectionSheet: View {
                     .font(.headline)
                     .foregroundColor(.secondary)
                 Spacer()
-                Button("Done") {
-                    onDone()
-                }
-                .accessibilityLabel("Close selection")
+                Button("Done", action: onDone)
+                    .accessibilityLabel("Close selection")
             }
             .padding()
+
+            if !selectedIDs.isEmpty {
+                Button("Clear Selection") {
+                    onClear()
+                }
+                .foregroundColor(.red)
+                .padding(.horizontal)
+                .padding(.bottom, 4)
+                .accessibilityLabel("Clear all selected options")
+            }
 
             List(allOptions, id: \.id) { option in
                 MultipleSelectionRow(
                     option: option,
                     isSelected: selectedIDs.contains(option.id),
-                    onTap: {
-                        onToggle(option)
-                    }
+                    onTap: { onToggle(option) }
                 )
             }
             .listStyle(.plain)
+            .searchable(text: $searchText, prompt: "Search \(title.lowercased())")
         }
-        .accessibilityElement(children: .contain)
+        .accessibilityLabel(Text("Select options for \(title)"))
     }
 }
-
 
 @available(iOS 14.0, *)
 struct MultipleSelectionRow: View {
@@ -69,6 +77,3 @@ struct MultipleSelectionRow: View {
         .accessibilityAddTraits(isSelected ? [.isButton, .isSelected] : .isButton)
     }
 }
-
-
-

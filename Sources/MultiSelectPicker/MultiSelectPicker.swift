@@ -6,13 +6,12 @@ import SwiftUI
 ///
 /// - Available on iOS 16.0 and above.
 ///
-
 @available(iOS 16.0, *)
 public struct MultiSelectPicker: View {
     public var title: String
     @Binding public var options: [FormOption]
     public var preSelected: [FormOption]
-    public var onSelectionChanged: ((Set<FormOption>) -> Void)? = nil
+    public var onDone: ((Set<FormOption>) -> Void)? = nil
 
     @StateObject private var viewModel: MultiSelectPickerViewModel
     @State private var showOptionsSheet = false
@@ -21,12 +20,12 @@ public struct MultiSelectPicker: View {
         title: String,
         options: Binding<[FormOption]>,
         preSelected: [FormOption] = [],
-        onSelectionChanged: ((Set<FormOption>) -> Void)? = nil
+        onDone: ((Set<FormOption>) -> Void)? = nil
     ) {
         self.title = title
         self._options = options
         self.preSelected = preSelected
-        self.onSelectionChanged = onSelectionChanged
+        self.onDone = onDone
         _viewModel = StateObject(wrappedValue: MultiSelectPickerViewModel(
             options: options.wrappedValue,
             preSelected: preSelected
@@ -41,7 +40,7 @@ public struct MultiSelectPicker: View {
                 HStack {
                     Text(viewModel.selectedOptions.isEmpty ? title :
                          viewModel.selectedOptions.map { $0.label }.joined(separator: ", "))
-                        .accessibilityLabel(viewModel.selectedOptions.isEmpty ? title : "Selected: \(viewModel.selectedOptions.map { $0.label }.joined(separator: ", "))")
+                        .accessibilityLabel(accessibilityLabelText)
                     Spacer()
                     Image(systemName: "chevron.down")
                 }
@@ -53,22 +52,30 @@ public struct MultiSelectPicker: View {
 
             .sheet(isPresented: $showOptionsSheet) {
                 OptionsSelectionSheet(
-                    allOptions: viewModel.allOptions,
+                    allOptions: viewModel.filteredOptions,
                     title: title,
-                    selectedIDs: $viewModel.selectedIDs, // ✅ Binding so checkmarks work
+                    selectedIDs: $viewModel.selectedIDs,
+                    searchText: $viewModel.searchText,
                     onToggle: { option in
                         viewModel.toggleSelection(option)
-                        onSelectionChanged?(viewModel.selectedOptions)
+                    },
+                    onClear: {
+                        viewModel.clearSelection()
                     },
                     onDone: {
                         showOptionsSheet = false
+                        options = viewModel.allOptions
+                        onDone?(viewModel.selectedOptions)
                     }
                 )
                 .presentationDetents([.medium])
             }
         }
-        .onDisappear {
-            options = viewModel.allOptions
-        }
+    }
+
+    private var accessibilityLabelText: String {
+        viewModel.selectedOptions.isEmpty
+            ? title
+            : "Selected: \(viewModel.selectedOptions.map { $0.label }.joined(separator: ", "))"
     }
 }
