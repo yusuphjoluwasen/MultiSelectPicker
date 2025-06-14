@@ -13,8 +13,8 @@ import SwiftUI
 struct OptionsSelectionSheet: View {
     var allOptions: [FormOption]
     var title: String
-    var selectedIDs: Set<String>  // Pure selection state
-    var onToggle: (FormOption) -> Void  // Delegate logic to caller
+    var selectedIDs: Set<String>
+    var onToggle: (FormOption) -> Void  
     var onDone: () -> Void
 
     var body: some View {

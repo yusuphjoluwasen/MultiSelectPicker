@@ -10,6 +10,8 @@ import SwiftUI
 public struct MultiSelectPicker: View {
     public var title: String
     @Binding public var options: [FormOption]
+    public var preSelected: [FormOption]
+    public var onSelectionChanged: ((Set<FormOption>) -> Void)? = nil
 
     @StateObject private var viewModel: MultiSelectPickerViewModel
     @State private var showOptionsSheet = false
@@ -17,11 +19,17 @@ public struct MultiSelectPicker: View {
     public init(
         title: String,
         options: Binding<[FormOption]>,
-        preSelected: [FormOption] = []
+        preSelected: [FormOption] = [],
+        onSelectionChanged: ((Set<FormOption>) -> Void)? = nil
     ) {
         self.title = title
         self._options = options
-        _viewModel = StateObject(wrappedValue: MultiSelectPickerViewModel(options: options.wrappedValue, preSelected: preSelected))
+        self.preSelected = preSelected
+        self.onSelectionChanged = onSelectionChanged
+        _viewModel = StateObject(wrappedValue: MultiSelectPickerViewModel(
+            options: options.wrappedValue,
+            preSelected: preSelected
+        ))
     }
 
     public var body: some View {
@@ -46,6 +54,7 @@ public struct MultiSelectPicker: View {
                     selectedIDs: viewModel.getSelectedLabels(),
                     onToggle: { option in
                         viewModel.toggleSelection(option)
+                        onSelectionChanged?(viewModel.selectedOptions) 
                     },
                     onDone: {
                         showOptionsSheet = false
