@@ -11,57 +11,44 @@ import SwiftUI
 
 @available(iOS 16.0, *)
 struct OptionsSelectionSheet: View {
-    var options: [FormOption]
-    var title:String
-    @Binding var selectedOptions: Set<FormOption>
-    @Binding var sheetIsOpen:Bool
-    
+    var allOptions: [FormOption]
+    var title: String
+    var selectedIDs: Set<String>  // Pure selection state
+    var onToggle: (FormOption) -> Void  // Delegate logic to caller
+    var onDone: () -> Void
+
     var body: some View {
-        VStack{
-            
-            HStack{
+        VStack {
+            HStack {
                 Text(title)
                     .foregroundColor(.secondary)
                 Spacer()
-                
-                Button(action: {
-                    sheetIsOpen = false
-                }){
-                    Text("Done")
+                Button("Done") {
+                    onDone()
                 }
             }
             .padding()
-            
-            List(options, id: \.self) { option in
-                MultipleSelectionRow(option: option, isSelected: option.isSelected) {
-                    toggleSelection(for: option)
-                }
-                .onAppear{dump("\(option.isSelected)")}
+
+            List(allOptions, id: \.id) { option in
+                MultipleSelectionRow(
+                    option: option,
+                    isSelected: selectedIDs.contains(option.id),
+                    onTap: {
+                        onToggle(option)
+                    }
+                )
             }
             .listStyle(.plain)
         }
     }
-    
-    private func toggleSelection(for option: FormOption) {
-        option.isSelected.toggle()
-        
-        if option.isSelected {
-            selectedOptions.insert(option)
-        } else {
-            selectedOptions.remove(option)
-        }
-    }
 }
-
-/// A row representing a single selectable item.
 
 @available(iOS 13.0, *)
 struct MultipleSelectionRow: View {
     var option: FormOption
     var isSelected: Bool
-    var uid:String?
     var onTap: () -> Void
-    
+
     var body: some View {
         Button(action: onTap) {
             HStack {
@@ -73,7 +60,7 @@ struct MultipleSelectionRow: View {
                 }
             }
         }
-        
     }
 }
+
 

@@ -4,7 +4,6 @@
 //
 //  Created by Guru King on 10/03/2025.
 //
-
 import SwiftUI
 import MultiSelectPicker
 
@@ -15,17 +14,22 @@ struct ContentView: View {
         FormOption(label: "Cooking", value: "cooking"),
         FormOption(label: "Gaming", value: "gaming")
     ]
-    
+
     var body: some View {
         VStack {
-            MultiSelectPicker(title: "Hobbies",options: $options)
-                .padding()
+            MultiSelectPicker(
+                title: "Hobbies",
+                options: $options,
+                preSelected: [
+                    FormOption(label: "Reading"),
+                    FormOption(label: "Gaming")
+                ]
+            )
+            .padding()
         }
-        
     }
 }
 
 #Preview {
     ContentView()
 }
-

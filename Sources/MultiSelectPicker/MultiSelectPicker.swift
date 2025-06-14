@@ -8,53 +8,54 @@ import SwiftUI
 ///
 @available(iOS 16.0, *)
 public struct MultiSelectPicker: View {
-    public var title:String
+    public var title: String
     @Binding public var options: [FormOption]
-    //use for internal display of selected items
-    @State private var selectedOptions: Set<FormOption> = []
+
+    @StateObject private var viewModel: MultiSelectPickerViewModel
     @State private var showOptionsSheet = false
-    
+
     public init(
         title: String,
-        options: Binding<[FormOption]>
+        options: Binding<[FormOption]>,
+        preSelected: [FormOption] = []
     ) {
         self.title = title
         self._options = options
+        _viewModel = StateObject(wrappedValue: MultiSelectPickerViewModel(options: options.wrappedValue, preSelected: preSelected))
     }
-    
+
     public var body: some View {
         VStack(alignment: .leading) {
-            Button(action: {
+            Button {
                 showOptionsSheet.toggle()
-            }) {
-                VStack {
-                    HStack {
-                        Text(selectedOptions.isEmpty ? title : selectedOptions.map { $0.label }.joined(separator: ", "))
-                        Spacer()
-                        Image("menuindicator", bundle: .module)
-                    }
+            } label: {
+                HStack {
+                    Text(viewModel.selectedOptions.isEmpty ? title :
+                         viewModel.selectedOptions.map { $0.label }.joined(separator: ", "))
+                    Spacer()
+                    Image(systemName: "chevron.down")
                 }
-                .frame(alignment: .leading)
                 .padding()
-                .background(Color.gray.opacity(0.5))
-                .cornerRadius(20)
+                .background(Color.gray.opacity(0.2))
+                .cornerRadius(10)
             }
             .sheet(isPresented: $showOptionsSheet) {
                 OptionsSelectionSheet(
-                    options: options, title: title,
-                    selectedOptions: $selectedOptions,
-                    sheetIsOpen: $showOptionsSheet
+                    allOptions: viewModel.allOptions,
+                    title: title,
+                    selectedIDs: viewModel.getSelectedLabels(),
+                    onToggle: { option in
+                        viewModel.toggleSelection(option)
+                    },
+                    onDone: {
+                        showOptionsSheet = false
+                    }
                 )
                 .presentationDetents([.medium])
             }
-            
         }
-        .onAppear{
-            // This ensures that items initially marked as selected
-            // are automatically pre-selected when the view appears.
-            // Remove this line if you do not support pre-selection.
-            selectedOptions = Set(options.filter { $0.isSelected })
+        .onDisappear {
+            options = viewModel.allOptions
         }
     }
 }
-
