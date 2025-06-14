@@ -17,59 +17,49 @@ struct OptionsSelectionSheet: View {
     var onToggle: (FormOption) -> Void
     var onClear: () -> Void
     var onDone: () -> Void
-
+    
     var body: some View {
         NavigationStack {
-            VStack {
-                // Header bar with Clear - Title - Done
-                HStack {
-                    Button("Clear") {
-                        onClear()
+            List {
+                ForEach(allOptions, id: \.id) { option in
+                    MultipleSelectionRow(
+                        option: option,
+                        isSelected: selectedIDs.contains(option.id),
+                        onTap: { onToggle(option) }
+                    )
+                }
+            }
+            .searchable(text: $searchText, prompt: "Search \(title.lowercased())")
+            .navigationTitle(title)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    if !selectedIDs.isEmpty {
+                        Button("Clear") {
+                            onClear()
+                        }
+                        .foregroundColor(.red)
+                        .accessibilityLabel("Clear all selected options")
                     }
-                    .foregroundColor(.red)
-                    .accessibilityLabel("Clear all selected options")
-
-                    Spacer()
-
-                    Text(title)
-                        .font(.headline)
-                        .foregroundColor(.secondary)
-
-                    Spacer()
-
+                }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Done") {
                         onDone()
                     }
                     .accessibilityLabel("Close selection")
                 }
-                .padding(.horizontal)
-                .padding(.top)
-
-                List {
-                    ForEach(allOptions, id: \.id) { option in
-                        MultipleSelectionRow(
-                            option: option,
-                            isSelected: selectedIDs.contains(option.id),
-                            onTap: { onToggle(option) }
-                        )
-                    }
-                }
-                .listStyle(.plain)
-                .searchable(text: $searchText, prompt: "Search \(title.lowercased())")
             }
-            .navigationBarHidden(true)
         }
-        .accessibilityLabel(Text("Select options for \(title)"))
     }
 }
-
 
 @available(iOS 14.0, *)
 struct MultipleSelectionRow: View {
     var option: FormOption
     var isSelected: Bool
     var onTap: () -> Void
-
+    
     var body: some View {
         Button(action: onTap) {
             HStack {
