@@ -29,6 +29,7 @@ struct OptionsSelectionSheet: View {
                     )
                 }
             }
+            .listStyle(.plain)
             .searchable(text: $searchText, prompt: "Search \(title.lowercased())")
             .navigationTitle(title)
             .navigationBarTitleDisplayMode(.inline)
