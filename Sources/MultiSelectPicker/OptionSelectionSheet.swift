@@ -8,24 +8,25 @@
 import SwiftUI
 
 /// A modal sheet view presenting a list of selectable options.
-
 @available(iOS 16.0, *)
 struct OptionsSelectionSheet: View {
     var allOptions: [FormOption]
     var title: String
-    var selectedIDs: Set<String>
-    var onToggle: (FormOption) -> Void  
+    @Binding var selectedIDs: Set<String>
+    var onToggle: (FormOption) -> Void
     var onDone: () -> Void
 
     var body: some View {
         VStack {
             HStack {
                 Text(title)
+                    .font(.headline)
                     .foregroundColor(.secondary)
                 Spacer()
                 Button("Done") {
                     onDone()
                 }
+                .accessibilityLabel("Close selection")
             }
             .padding()
 
@@ -40,10 +41,12 @@ struct OptionsSelectionSheet: View {
             }
             .listStyle(.plain)
         }
+        .accessibilityElement(children: .contain)
     }
 }
 
-@available(iOS 13.0, *)
+
+@available(iOS 14.0, *)
 struct MultipleSelectionRow: View {
     var option: FormOption
     var isSelected: Bool
@@ -59,8 +62,14 @@ struct MultipleSelectionRow: View {
                         .foregroundColor(.accentColor)
                 }
             }
+            .padding(.vertical, 8)
         }
+        .accessibilityElement()
+        .accessibilityLabel(option.label)
+        .accessibilityValue(isSelected ? "Selected" : "Not selected")
+        .accessibilityAddTraits(isSelected ? [.isButton, .isSelected] : .isButton)
     }
 }
+
 
 

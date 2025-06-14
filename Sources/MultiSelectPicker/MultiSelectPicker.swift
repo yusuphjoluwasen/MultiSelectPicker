@@ -6,6 +6,7 @@ import SwiftUI
 ///
 /// - Available on iOS 16.0 and above.
 ///
+
 @available(iOS 16.0, *)
 public struct MultiSelectPicker: View {
     public var title: String
@@ -40,6 +41,7 @@ public struct MultiSelectPicker: View {
                 HStack {
                     Text(viewModel.selectedOptions.isEmpty ? title :
                          viewModel.selectedOptions.map { $0.label }.joined(separator: ", "))
+                        .accessibilityLabel(viewModel.selectedOptions.isEmpty ? title : "Selected: \(viewModel.selectedOptions.map { $0.label }.joined(separator: ", "))")
                     Spacer()
                     Image(systemName: "chevron.down")
                 }
@@ -47,14 +49,16 @@ public struct MultiSelectPicker: View {
                 .background(Color.gray.opacity(0.2))
                 .cornerRadius(10)
             }
+            .accessibilityElement(children: .combine)
+
             .sheet(isPresented: $showOptionsSheet) {
                 OptionsSelectionSheet(
                     allOptions: viewModel.allOptions,
                     title: title,
-                    selectedIDs: viewModel.getSelectedLabels(),
+                    selectedIDs: $viewModel.selectedIDs, // ✅ Binding so checkmarks work
                     onToggle: { option in
                         viewModel.toggleSelection(option)
-                        onSelectionChanged?(viewModel.selectedOptions) 
+                        onSelectionChanged?(viewModel.selectedOptions)
                     },
                     onDone: {
                         showOptionsSheet = false
