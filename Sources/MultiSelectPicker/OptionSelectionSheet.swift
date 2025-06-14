@@ -19,38 +19,37 @@ struct OptionsSelectionSheet: View {
     var onDone: () -> Void
 
     var body: some View {
-        VStack {
-            HStack {
-                Text(title)
-                    .font(.headline)
-                    .foregroundColor(.secondary)
-                Spacer()
-                Button("Done", action: onDone)
-                    .accessibilityLabel("Close selection")
-            }
-            .padding()
-
-            if !selectedIDs.isEmpty {
-                Button("Clear Selection") {
-                    onClear()
+        NavigationStack {
+            List {
+                if !selectedIDs.isEmpty {
+                    Section {
+                        Button("Clear Selection") {
+                            onClear()
+                        }
+                        .foregroundColor(.red)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .accessibilityLabel("Clear all selected options")
+                    }
                 }
-                .foregroundColor(.red)
-                .padding(.horizontal)
-                .padding(.bottom, 4)
-                .accessibilityLabel("Clear all selected options")
-            }
 
-            List(allOptions, id: \.id) { option in
-                MultipleSelectionRow(
-                    option: option,
-                    isSelected: selectedIDs.contains(option.id),
-                    onTap: { onToggle(option) }
-                )
+                ForEach(allOptions, id: \.id) { option in
+                    MultipleSelectionRow(
+                        option: option,
+                        isSelected: selectedIDs.contains(option.id),
+                        onTap: { onToggle(option) }
+                    )
+                }
             }
-            .listStyle(.plain)
             .searchable(text: $searchText, prompt: "Search \(title.lowercased())")
+            .navigationTitle(title)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Done", action: onDone)
+                        .accessibilityLabel("Close selection")
+                }
+            }
         }
-        .accessibilityLabel(Text("Select options for \(title)"))
     }
 }
 
