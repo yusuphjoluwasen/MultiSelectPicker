@@ -11,6 +11,11 @@ import Foundation
 public struct FormOption: Hashable, Identifiable {
     public var id: String = UUID().uuidString
     public var label: String
-    public var value: String?
+    public var value: String
+    
+    public init(label: String, value: String) {
+            self.label = label
+            self.value = value
+        }
 }
 
