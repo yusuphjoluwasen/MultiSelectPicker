@@ -15,8 +15,8 @@ public class MultiSelectPickerViewModel: ObservableObject {
 
     public init(options: [FormOption], preSelected: [FormOption] = []) {
         self.allOptions = options
-        let labelsToPreselect = Set(preSelected.map { $0.label })
-        self.selectedOptions = Set(options.filter { labelsToPreselect.contains($0.label) })
+        let labelsToPreselect = Set(preSelected.map { $0.label.lowercased() })
+        self.selectedOptions = Set(options.filter { labelsToPreselect.contains($0.label.lowercased()) })
     }
 
     public func toggleSelection(_ option: FormOption) {

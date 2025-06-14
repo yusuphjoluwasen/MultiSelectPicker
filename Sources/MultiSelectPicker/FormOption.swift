@@ -10,8 +10,7 @@ import Foundation
 /// A model representing a selectable option, used in the picker
 public struct FormOption: Hashable, Identifiable {
     public var id: String = UUID().uuidString
-    var label: String
-    var value: String?
-    var uid: String?
+    public var label: String
+    public var value: String?
 }
 
