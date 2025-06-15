@@ -86,24 +86,7 @@ To try the component locally:
 
 > Make sure you're using **Xcode 14 or later** and targeting **iOS 16 or above**.
 
-
-
-
-## Contributing to MultiSelectPicker
-We love contributions from the community, Whether it's fixing a bug, improving performance, adding features, or enhancing documentation, your help is welcome.
-
-### How To Contribute
-- Look for issues on the Issues tab
-- Comment on the issue to get assigned to it.
-- Fork the repository on GitHub.
-- Once you are done with changes, Create a Pull Request (PR) on and describe the changes.
-- Add screenshots or images of any UI changes in your PR
-- Ensure changes meet acceptance criteria stated in the issue
-
-#### You can also file an issue to request a feature or report a bug you come across. Thanks!
+#### You can file an issue to request a feature or report a bug you come across. Thanks!
 
 ## 📜 License
 This project is licensed under the MIT License — meaning you can use, modify, and distribute it freely.
-
-
-
