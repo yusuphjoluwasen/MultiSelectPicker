@@ -12,9 +12,9 @@ A MultiSelect Picker for selecting multiple options, designed to feel as close a
 - [x] Two-way binding — Automatically updates selected options
 - [x] Lightweight — Minimal code with clean and reusable SwiftUI components.
 - [x] Light and Dark Mode 
-- [ ] Search — Add a search bar to filter options.
-- [ ] Custom Styling — Support for custom colors, and styles.
-- [ ] Accessibility Improvements.
+- [x] Search — Add a search bar to filter options.
+- [x] Accessibility Improvements.
+- [x] Unit Tests.
 - [ ] Localizations.
 
 ## Installation
