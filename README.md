@@ -39,16 +39,25 @@ import MultiSelectPicker
 
 struct ContentView: View {
     @State var options: [FormOption] = [
-        FormOption(label: "Reading", value: "reading"),
-        FormOption(label: "Traveling", value: "traveling"),
-        FormOption(label: "Cooking", value: "cooking"),
-        FormOption(label: "Gaming", value: "gaming")
+        FormOption(id: "1", label: "Reading", value: "reading"),
+        FormOption(id: "2", label: "Traveling", value: "traveling"),
+        FormOption(id: "3", label: "Cooking", value: "cooking"),
+        FormOption(id: "4", label: "Gaming", value: "gaming")
     ]
-    
+
     var body: some View {
         VStack {
-            MultiSelectPicker(title: "Hobbies", options: $options)
-                .padding()
+            MultiSelectPicker(
+                title: "Hobbies",
+                options: $options,
+                preSelected: [
+                    FormOption(id: "2", label: "Traveling", value: "traveling")
+                ],
+                onDone: { selected in
+                    print("Selected options:", selected)
+                }
+            )
+            .padding()
         }
     }
 }
